@@ -10,6 +10,10 @@ class UserRepository extends IUserRepository {
     }
     return users;
   }
+  async create(userData) {
+    const newUser = new User(userData);
+    return await newUser.save();
+  }
 }
 
 export default UserRepository;
