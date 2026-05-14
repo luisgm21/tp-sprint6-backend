@@ -4,6 +4,10 @@ export const getUsersService = async () => {
   // Lógica para obtener los usuarios desde la base de datos
   return await userRepository.getAll();
 }
+export const getUserService = async (id) => {
+  // Lógica para obtener un usuario específico desde la base de datos
+  return await userRepository.getById(id);
+}
 
 export const createUserService = async (userData) => {
   // Lógica para crear un nuevo usuario en la base de datos

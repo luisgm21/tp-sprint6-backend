@@ -1,10 +1,22 @@
-import { getUsersService , createUserService , updateUserService , deleteUserService  } from "../services/userService.mjs";
+import { getUsersService, getUserService , createUserService , updateUserService , deleteUserService  } from "../services/userService.mjs";
 
 
 export const getUsersController = async (req, res) => {
 	try {
 		const users = await getUsersService();
 		res.json(users);
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+};
+
+export const getUserController = async (req, res) => {
+	try {
+		const user = await getUserService(req.params.id);
+		if (!user) {
+			return res.status(404).json({ error: "Usuario no encontrado" });
+		}
+		res.json(user);
 	} catch (error) {
 		res.status(500).json({ error: error.message });
 	}

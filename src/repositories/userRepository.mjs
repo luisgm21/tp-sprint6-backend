@@ -10,6 +10,10 @@ class UserRepository extends IUserRepository {
     }
     return users;
   }
+  async getById(id) {
+    const user = await User.findOne({ _id: id, isDeleted: false });
+    return user;
+  }
   async create(userData) {
     const newUser = new User(userData);
     return await newUser.save();

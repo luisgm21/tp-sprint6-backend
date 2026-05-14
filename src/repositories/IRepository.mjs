@@ -2,6 +2,11 @@ class IUserRepository {
   getAll() {
     throw new Error("Method not implemented");
   }
+
+  getById(id) {
+    throw new Error("Method not implemented");
+  }
+
   create(userData) {
     throw new Error("Method not implemented");
   }
