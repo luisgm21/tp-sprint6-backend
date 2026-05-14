@@ -14,6 +14,14 @@ class UserRepository extends IUserRepository {
     const newUser = new User(userData);
     return await newUser.save();
   }
+  async update(id, userData) {
+    const updatedUser = await User.findByIdAndUpdate(id, userData, { new: true });
+    return updatedUser;
+  }
+  async delete(id) {
+    const deletedUser = await User.findByIdAndUpdate(id, { isDeleted: true }, { new: true });
+    return deletedUser;
+  }
 }
 
 export default UserRepository;
