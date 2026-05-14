@@ -1,4 +1,4 @@
-import { getUsersService , createUserController , updateUserService , deleteUserService  } from "../services/userService.mjs";
+import { getUsersService , createUserService , updateUserService , deleteUserService  } from "../services/userService.mjs";
 
 
 export const getUsersController = async (req, res) => {

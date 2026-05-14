@@ -1,11 +1,11 @@
 import { Router } from "express";
 import { userUpdateValidationRules } from "../validators/userValidators.mjs";
 import { validate } from "../middleware/validatorMiddleware.mjs";
-export { getUsersController, createUserController, updateUserController, deleteUserController } from "../controllers/userController.mjs";
+import { getUsersController, createUserController, updateUserController, deleteUserController } from "../controllers/userController.mjs";
 
 const userRouter = Router();
 
-userRouter.get("/", getUsersController);
+userRouter.get("/",getUsersController);
 userRouter.post("/create", createUserController);
 userRouter.put("/update/:id", userUpdateValidationRules, validate , updateUserController);
 userRouter.delete("/delete/:id", deleteUserController);

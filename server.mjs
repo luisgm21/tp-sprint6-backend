@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import app from './src/app.mjs';
-import connectDB from './src/config/db.mjs';
+import connectDB from './src/config/dbconfig.mjs';
 
 const startServer = async () => {
   try {
