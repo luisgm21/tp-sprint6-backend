@@ -1,3 +1,4 @@
+import userRepository from '../repositories/userRepository.mjs';
 
 export const getUsersService = async () => {
   // Lógica para obtener los usuarios desde la base de datos

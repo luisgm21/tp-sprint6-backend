@@ -24,5 +24,6 @@ class UserRepository extends IUserRepository {
   }
 }
 
-export default UserRepository;
+const userRepository = new UserRepository();
+export default userRepository;
 
