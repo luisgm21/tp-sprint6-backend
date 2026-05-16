@@ -4,26 +4,35 @@ import User from "../models/userModel.mjs";
 
 class UserRepository extends IUserRepository {
   async getAll() {
-    const users = await User.find({isDeleted: false});
+    const users = await User.find({ isDeleted: false }).select('-password');
     if (users.length === 0) {
       return [];
     }
     return users;
   }
   async getById(id) {
-    const user = await User.findOne({ _id: id, isDeleted: false });
+    const user = await User.findOne({ _id: id, isDeleted: false }).select('-password');
     return user;
   }
   async create(userData) {
     const newUser = new User(userData);
-    return await newUser.save();
+    await newUser.save();
+    return User.findById(newUser._id).select('-password');
   }
   async update(id, userData) {
-    const updatedUser = await User.findByIdAndUpdate(id, userData, { new: true });
+    const updatedUser = await User.findOneAndUpdate(
+      { _id: id, isDeleted: false },
+      userData,
+      { new: true, runValidators: true }
+    ).select('-password');
     return updatedUser;
   }
   async delete(id) {
-    const deletedUser = await User.findByIdAndUpdate(id, { isDeleted: true }, { new: true });
+    const deletedUser = await User.findOneAndUpdate(
+      { _id: id, isDeleted: false },
+      { isDeleted: true },
+      { new: true }
+    ).select('-password');
     return deletedUser;
   }
 
@@ -40,11 +49,19 @@ class UserRepository extends IUserRepository {
   }
 
   async deactivate(id) {
-    return User.findByIdAndUpdate(id, { isDeleted: true }, { new: true });
+    return User.findOneAndUpdate(
+      { _id: id, isDeleted: false },
+      { isDeleted: true },
+      { new: true }
+    ).select('-password');
   }
 
   async updatePassword(id, password) {
-    return User.findByIdAndUpdate(id, { password }, { new: true });
+    return User.findOneAndUpdate(
+      { _id: id, isDeleted: false },
+      { password },
+      { new: true, runValidators: true }
+    ).select('-password');
   }
 }
 

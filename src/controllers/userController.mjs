@@ -1,4 +1,13 @@
-import { getUsersService, getUserService , createUserService , updateUserService , deleteUserService, updatePasswordService  } from "../services/userService.mjs";
+import {
+	getUsersService,
+	getUserService,
+	createUserService,
+	updateUserService,
+	deleteUserService,
+	updatePasswordService,
+	getTeachersBySchoolService,
+	deactivateUserService
+} from "../services/userService.mjs";
 
 
 export const getUsersController = async (req, res) => {
@@ -64,6 +73,27 @@ export const deleteUserController = async (req, res) => {
 			return res.status(404).json({ error: "Usuario no encontrado" });
 		}
 		res.json({ message: "Usuario eliminado correctamente" });
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+};
+
+export const getTeachersBySchoolController = async (req, res) => {
+	try {
+		const teachers = await getTeachersBySchoolService(req.params.schoolId);
+		res.json(teachers);
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+};
+
+export const deactivateUserController = async (req, res) => {
+	try {
+		const user = await deactivateUserService(req.params.id);
+		if (!user) {
+			return res.status(404).json({ error: "Usuario no encontrado" });
+		}
+		res.json({ message: "Usuario desactivado correctamente" });
 	} catch (error) {
 		res.status(500).json({ error: error.message });
 	}

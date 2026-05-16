@@ -29,7 +29,7 @@ class IUserRepository {
     throw new Error("Method not implemented");
   }
 
-  updatePassword(id, passwordHash) {
+  updatePassword(id, password) {
     throw new Error("Method not implemented");
   }
 }
