@@ -23,3 +23,19 @@ export const deleteUserService = async (id) => {
   // Lógica para eliminar un usuario de la base de datos
   return await userRepository.delete(id);
 }
+
+export const getUserByEmailService = async (email) => {
+  return userRepository.findByEmail(email);
+}
+
+export const getTeachersBySchoolService = async (schoolId) => {
+  return userRepository.findTeachersBySchool(schoolId);
+}
+
+export const deactivateUserService = async (id) => {
+  return userRepository.deactivate(id);
+}
+
+export const updatePasswordService = async (id, password) => {
+  return userRepository.updatePassword(id, password);
+}

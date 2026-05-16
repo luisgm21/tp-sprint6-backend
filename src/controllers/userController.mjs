@@ -1,4 +1,4 @@
-import { getUsersService, getUserService , createUserService , updateUserService , deleteUserService  } from "../services/userService.mjs";
+import { getUsersService, getUserService , createUserService , updateUserService , deleteUserService, updatePasswordService  } from "../services/userService.mjs";
 
 
 export const getUsersController = async (req, res) => {
@@ -47,7 +47,7 @@ export const changePasswordController = async (req, res) => {
 	try {
 		const { password } = req.body;
 		
-		const user = await updateUserService(req.params.id, { password });
+		const user = await updatePasswordService(req.params.id, password);
 		if (!user) {
 			return res.status(404).json({ error: "Usuario no encontrado" });
 		}
