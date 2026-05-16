@@ -1,6 +1,7 @@
 import School, { find, findById as _findById, findByIdAndUpdate, exists as _exists } from '../models/School';
+import ISchoolRepository from './ISchoolRepository.mjs';
 
-class SchoolRepository {
+class SchoolRepository extends ISchoolRepository {
   
   async findAll() {
     return find({ active: true });

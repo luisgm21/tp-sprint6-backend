@@ -1,37 +1,31 @@
-class IUserRepository {
-  getAll() {
+class IGradeHistoryRepository {
+  findByEvaluation(evaluationId) {
     throw new Error("Method not implemented");
   }
 
-  getById(id) {
+  findByCourseAndStudent(courseId, studentId) {
     throw new Error("Method not implemented");
   }
 
-  create(userData) {
-    throw new Error("Method not implemented");
-  }
-  update(id, userData) {
-    throw new Error("Method not implemented");
-  }
-  delete(id) {
+  findByTeacher(teacherId, options = {}) {
     throw new Error("Method not implemented");
   }
 
-  findByEmail(email) {
+  findByCourse(courseId, options = {}) {
     throw new Error("Method not implemented");
   }
 
-  findTeachersBySchool(schoolId) {
+  logCreation(evaluation) {
     throw new Error("Method not implemented");
   }
 
-  deactivate(id) {
+  logUpdate(oldEvaluation, newEvaluation, changedBy) {
     throw new Error("Method not implemented");
   }
 
-  updatePassword(id, passwordHash) {
+  logDeletion(evaluation, changedBy) {
     throw new Error("Method not implemented");
   }
 }
 
-export default IUserRepository;
+export default IGradeHistoryRepository;

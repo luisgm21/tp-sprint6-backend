@@ -1,6 +1,7 @@
 import Student, { find, countDocuments, findOne, findByIdAndUpdate, insertMany } from '../models/Student';
+import IStudentRepository from './IStudentRepository.mjs';
 
-class StudentRepository {
+class StudentRepository extends IStudentRepository {
 
   async findBySchool(schoolId, { active = true, page = 1, limit = 50 } = {}) {
     const query = { schoolId, active };

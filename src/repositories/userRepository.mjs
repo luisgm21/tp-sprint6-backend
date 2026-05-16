@@ -26,6 +26,26 @@ class UserRepository extends IUserRepository {
     const deletedUser = await User.findByIdAndUpdate(id, { isDeleted: true }, { new: true });
     return deletedUser;
   }
+
+  async findByEmail(email) {
+    return User.findOne({ email, isDeleted: false }).select('-password');
+  }
+
+  async findTeachersBySchool(schoolId) {
+    return User.find({ 
+      schoolIds: schoolId, 
+      role: 'teacher', 
+      isDeleted: false 
+    }).select('-password');
+  }
+
+  async deactivate(id) {
+    return User.findByIdAndUpdate(id, { isDeleted: true }, { new: true });
+  }
+
+  async updatePassword(id, password) {
+    return User.findByIdAndUpdate(id, { password }, { new: true });
+  }
 }
 
 const userRepository = new UserRepository();

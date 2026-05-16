@@ -1,6 +1,7 @@
 import { find, countDocuments, create } from '../models/GradeHistory';
+import IGradeHistoryRepository from './IGradeHistoryRepository.mjs';
 
-class GradeHistoryRepository {
+class GradeHistoryRepository extends IGradeHistoryRepository {
 
   /**
    * Historial de cambios de una evaluación específica

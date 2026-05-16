@@ -1,27 +1,21 @@
-class IUserRepository {
-  getAll() {
+class IAssessmentTemplateRepository {
+  findBySchool(schoolId, type = null) {
     throw new Error("Method not implemented");
   }
 
-  getById(id) {
+  findAvailable(schoolId, type = null) {
     throw new Error("Method not implemented");
   }
 
-  create(userData) {
-    throw new Error("Method not implemented");
-  }
-  update(id, userData) {
-    throw new Error("Method not implemented");
-  }
-  delete(id) {
+  findById(id) {
     throw new Error("Method not implemented");
   }
 
-  findByEmail(email) {
+  create(templateData) {
     throw new Error("Method not implemented");
   }
 
-  findTeachersBySchool(schoolId) {
+  update(id, templateData) {
     throw new Error("Method not implemented");
   }
 
@@ -29,9 +23,9 @@ class IUserRepository {
     throw new Error("Method not implemented");
   }
 
-  updatePassword(id, passwordHash) {
+  isActive(id) {
     throw new Error("Method not implemented");
   }
 }
 
-export default IUserRepository;
+export default IAssessmentTemplateRepository;

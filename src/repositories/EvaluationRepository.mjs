@@ -1,6 +1,7 @@
 import Evaluation, { find, findById as _findById, findByIdAndUpdate, findByIdAndDelete, aggregate } from '../models/Evaluation';
+import IEvaluationRepository from './IEvaluationRepository.mjs';
 
-class EvaluationRepository {
+class EvaluationRepository extends IEvaluationRepository {
 
   /**
    * Todas las evaluaciones de un curso (para planilla del docente)

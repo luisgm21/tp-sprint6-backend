@@ -1,6 +1,7 @@
 import AssessmentTemplate, { find, findById as _findById, findByIdAndUpdate, exists } from '../models/AssessmentTemplate';
+import IAssessmentTemplateRepository from './IAssessmentTemplateRepository.mjs';
 
-class AssessmentTemplateRepository {
+class AssessmentTemplateRepository extends IAssessmentTemplateRepository {
 
   /**
    * Plantillas disponibles por escuela y tipo

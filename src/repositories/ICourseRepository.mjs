@@ -1,27 +1,21 @@
-class IUserRepository {
-  getAll() {
+class ICourseRepository {
+  findByTeacher(teacherId, year = new Date().getFullYear()) {
     throw new Error("Method not implemented");
   }
 
-  getById(id) {
+  findBySchool(schoolId, year = new Date().getFullYear()) {
     throw new Error("Method not implemented");
   }
 
-  create(userData) {
-    throw new Error("Method not implemented");
-  }
-  update(id, userData) {
-    throw new Error("Method not implemented");
-  }
-  delete(id) {
+  findById(id) {
     throw new Error("Method not implemented");
   }
 
-  findByEmail(email) {
+  create(courseData) {
     throw new Error("Method not implemented");
   }
 
-  findTeachersBySchool(schoolId) {
+  update(id, courseData) {
     throw new Error("Method not implemented");
   }
 
@@ -29,9 +23,13 @@ class IUserRepository {
     throw new Error("Method not implemented");
   }
 
-  updatePassword(id, passwordHash) {
+  isTeacherOwner(courseId, teacherId) {
+    throw new Error("Method not implemented");
+  }
+
+  getCoursesWithStudentCount(schoolId, year) {
     throw new Error("Method not implemented");
   }
 }
 
-export default IUserRepository;
+export default ICourseRepository;

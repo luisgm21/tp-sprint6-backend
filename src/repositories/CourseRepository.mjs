@@ -1,6 +1,7 @@
 import Course, { find, findById as _findById, findByIdAndUpdate, findOne, aggregate } from '../models/Course';
+import ICourseRepository from './ICourseRepository.mjs';
 
-class CourseRepository {
+class CourseRepository extends ICourseRepository {
 
   /**
    * Cursos activos de un docente en un año específico

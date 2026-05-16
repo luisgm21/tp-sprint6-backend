@@ -1,6 +1,7 @@
 import Enrollment, { find, findById as _findById, findOne, insertMany, findByIdAndUpdate, findOneAndUpdate, countDocuments } from '../models/Enrollment';
+import IEnrollmentRepository from './IEnrollmentRepository.mjs';
 
-class EnrollmentRepository {
+class EnrollmentRepository extends IEnrollmentRepository {
 
   /**
    * Alumnos inscriptos en un curso
