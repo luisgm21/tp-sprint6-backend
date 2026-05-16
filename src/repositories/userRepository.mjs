@@ -1,4 +1,4 @@
-import IUserRepository from "./IRepository.mjs";
+import IUserRepository from "./IUserRepository.mjs";
 import User from "../models/userModel.mjs";
 
 
