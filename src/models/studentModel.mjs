@@ -1,3 +1,5 @@
+import mongoose from 'mongoose';
+
 const studentSchema = new mongoose.Schema({
   schoolId: { type: mongoose.Schema.Types.ObjectId, ref: 'School', required: true },
   firstName: { type: String, required: true },

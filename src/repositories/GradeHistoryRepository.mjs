@@ -1,4 +1,4 @@
-import { find, countDocuments, create } from '../models/GradeHistory';
+import GradeHistory from '../models/gradeHistoryModel.mjs';
 import IGradeHistoryRepository from './IGradeHistoryRepository.mjs';
 
 class GradeHistoryRepository extends IGradeHistoryRepository {
@@ -7,7 +7,7 @@ class GradeHistoryRepository extends IGradeHistoryRepository {
    * Historial de cambios de una evaluación específica
    */
   async findByEvaluation(evaluationId) {
-    return find({ evaluationId })
+    return GradeHistory.find({ evaluationId })
       .populate('changedBy', 'fullName email')
       .sort({ timestamp: -1 });
   }
@@ -16,7 +16,7 @@ class GradeHistoryRepository extends IGradeHistoryRepository {
    * Historial de cambios de un alumno en un curso
    */
   async findByCourseAndStudent(courseId, studentId) {
-    return find({ courseId, studentId })
+    return GradeHistory.find({ courseId, studentId })
       .populate('changedBy', 'fullName')
       .populate('evaluationId', 'name date')
       .sort({ timestamp: -1 });
@@ -35,7 +35,7 @@ class GradeHistoryRepository extends IGradeHistoryRepository {
       query.courseId = courseId;
     }
     
-    return find(query)
+    return GradeHistory.find(query)
       .populate('studentId', 'firstName lastName')
       .populate('evaluationId', 'name date')
       .sort({ timestamp: -1 })
@@ -49,14 +49,14 @@ class GradeHistoryRepository extends IGradeHistoryRepository {
     const skip = (page - 1) * limit;
     
     const [history, total] = await Promise.all([
-      find({ courseId })
+      GradeHistory.find({ courseId })
         .populate('changedBy', 'fullName')
         .populate('studentId', 'firstName lastName')
         .populate('evaluationId', 'name date')
         .sort({ timestamp: -1 })
         .skip(skip)
         .limit(limit),
-      countDocuments({ courseId })
+      GradeHistory.countDocuments({ courseId })
     ]);
     
     return { history, total, page, totalPages: Math.ceil(total / limit) };
@@ -66,7 +66,7 @@ class GradeHistoryRepository extends IGradeHistoryRepository {
    * Registrar creación de evaluación
    */
   async logCreation(evaluation) {
-    return create({
+    return GradeHistory.create({
       evaluationId: evaluation._id,
       courseId: evaluation.courseId,
       studentId: evaluation.studentId,
@@ -86,7 +86,7 @@ class GradeHistoryRepository extends IGradeHistoryRepository {
    * Registrar modificación de evaluación
    */
   async logUpdate(oldEvaluation, newEvaluation, changedBy) {
-    return create({
+    return GradeHistory.create({
       evaluationId: newEvaluation._id,
       courseId: newEvaluation.courseId,
       studentId: newEvaluation.studentId,
@@ -112,7 +112,7 @@ class GradeHistoryRepository extends IGradeHistoryRepository {
    * Registrar eliminación de evaluación
    */
   async logDeletion(evaluation, changedBy) {
-    return create({
+    return GradeHistory.create({
       evaluationId: evaluation._id,
       courseId: evaluation.courseId,
       studentId: evaluation.studentId,

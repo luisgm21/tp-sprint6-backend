@@ -1,3 +1,5 @@
+import mongoose from 'mongoose';
+
 const courseSchema = new mongoose.Schema({
   schoolId: { type: mongoose.Schema.Types.ObjectId, ref: 'School', required: true },
   name: { type: String, required: true },               // "Matemáticas 1° A"

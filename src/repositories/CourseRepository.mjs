@@ -1,4 +1,4 @@
-import Course, { find, findById as _findById, findByIdAndUpdate, findOne, aggregate } from '../models/Course';
+import Course from '../models/courseModel.mjs';
 import ICourseRepository from './ICourseRepository.mjs';
 
 class CourseRepository extends ICourseRepository {
@@ -7,7 +7,7 @@ class CourseRepository extends ICourseRepository {
    * Cursos activos de un docente en un año específico
    */
   async findByTeacher(teacherId, year = new Date().getFullYear()) {
-    return find({ 
+    return Course.find({ 
       teacherId, 
       year, 
       active: true 
@@ -20,7 +20,7 @@ class CourseRepository extends ICourseRepository {
    * Todos los cursos de una escuela en un año
    */
   async findBySchool(schoolId, year = new Date().getFullYear()) {
-    return find({ 
+    return Course.find({ 
       schoolId, 
       year, 
       active: true 
@@ -30,7 +30,7 @@ class CourseRepository extends ICourseRepository {
   }
 
   async findById(id) {
-    return _findById(id)
+    return Course.findById(id)
       .populate('schoolId', 'name')
       .populate('teacherId', 'fullName email');
   }
@@ -41,18 +41,18 @@ class CourseRepository extends ICourseRepository {
   }
 
   async update(id, courseData) {
-    return findByIdAndUpdate(id, courseData, { new: true, runValidators: true });
+    return Course.findByIdAndUpdate(id, courseData, { new: true, runValidators: true });
   }
 
   async deactivate(id) {
-    return findByIdAndUpdate(id, { active: false }, { new: true });
+    return Course.findByIdAndUpdate(id, { active: false }, { new: true });
   }
 
   /**
    * Verificar si un docente es dueño del curso
    */
   async isTeacherOwner(courseId, teacherId) {
-    const course = await findOne({ _id: courseId, teacherId, active: true });
+    const course = await Course.findOne({ _id: courseId, teacherId, active: true });
     return !!course;
   }
 
@@ -60,7 +60,7 @@ class CourseRepository extends ICourseRepository {
    * Cursos activos con cantidad de alumnos inscriptos (requiere agregación)
    */
   async getCoursesWithStudentCount(schoolId, year) {
-    return aggregate([
+    return Course.aggregate([
       {
         $match: { schoolId, year, active: true }
       },

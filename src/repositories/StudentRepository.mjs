@@ -1,4 +1,4 @@
-import Student, { find, countDocuments, findOne, findByIdAndUpdate, insertMany } from '../models/Student';
+import Student from '../models/studentModel.mjs';
 import IStudentRepository from './IStudentRepository.mjs';
 
 class StudentRepository extends IStudentRepository {
@@ -8,24 +8,24 @@ class StudentRepository extends IStudentRepository {
     const skip = (page - 1) * limit;
     
     const [students, total] = await Promise.all([
-      find(query).skip(skip).limit(limit).sort({ lastName: 1, firstName: 1 }),
-      countDocuments(query)
+      Student.find(query).skip(skip).limit(limit).sort({ lastName: 1, firstName: 1 }),
+      Student.countDocuments(query)
     ]);
     
     return { students, total, page, totalPages: Math.ceil(total / limit) };
   }
 
   async findById(id) {
-    return findOne({ _id: id, active: true });
+    return Student.findOne({ _id: id, active: true });
   }
 
   async findByDocument(schoolId, documentNumber) {
-    return findOne({ schoolId, documentNumber, active: true });
+    return Student.findOne({ schoolId, documentNumber, active: true });
   }
 
   async search(schoolId, searchTerm) {
     const regex = new RegExp(searchTerm, 'i');
-    return find({
+    return Student.find({
       schoolId,
       active: true,
       $or: [
@@ -42,15 +42,15 @@ class StudentRepository extends IStudentRepository {
   }
 
   async update(id, studentData) {
-    return findByIdAndUpdate(id, studentData, { new: true, runValidators: true });
+    return Student.findByIdAndUpdate(id, studentData, { new: true, runValidators: true });
   }
 
   async deactivate(id) {
-    return findByIdAndUpdate(id, { active: false }, { new: true });
+    return Student.findByIdAndUpdate(id, { active: false }, { new: true });
   }
 
   async bulkCreate(studentsArray) {
-    return insertMany(studentsArray);
+    return Student.insertMany(studentsArray);
   }
 }
 

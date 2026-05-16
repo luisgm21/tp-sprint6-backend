@@ -1,4 +1,5 @@
-import Enrollment, { find, findById as _findById, findOne, insertMany, findByIdAndUpdate, findOneAndUpdate, countDocuments } from '../models/Enrollment';
+import Enrollment from '../models/enrollmentModel.mjs';
+import Student from '../models/studentModel.mjs';
 import IEnrollmentRepository from './IEnrollmentRepository.mjs';
 
 class EnrollmentRepository extends IEnrollmentRepository {
@@ -7,7 +8,7 @@ class EnrollmentRepository extends IEnrollmentRepository {
    * Alumnos inscriptos en un curso
    */
   async findByCourse(courseId, { status = 'active' } = {}) {
-    return find({ courseId, status })
+    return Enrollment.find({ courseId, status })
       .populate('studentId', 'firstName lastName documentNumber')
       .sort({ 'studentId.lastName': 1, 'studentId.firstName': 1 });
   }
@@ -16,7 +17,7 @@ class EnrollmentRepository extends IEnrollmentRepository {
    * Cursos en los que está inscripto un alumno
    */
   async findByStudent(studentId, year = new Date().getFullYear()) {
-    return find({ studentId, year, status: 'active' })
+    return Enrollment.find({ studentId, year, status: 'active' })
       .populate({
         path: 'courseId',
         select: 'name grade section',
@@ -28,7 +29,7 @@ class EnrollmentRepository extends IEnrollmentRepository {
   }
 
   async findById(id) {
-    return _findById(id)
+    return Enrollment.findById(id)
       .populate('studentId', 'firstName lastName documentNumber')
       .populate('courseId', 'name grade section year');
   }
@@ -37,7 +38,7 @@ class EnrollmentRepository extends IEnrollmentRepository {
    * Inscripción específica de un alumno en un curso
    */
   async findByCourseAndStudent(courseId, studentId) {
-    return findOne({ courseId, studentId, status: 'active' });
+    return Enrollment.findOne({ courseId, studentId, status: 'active' });
   }
 
   async create(enrollmentData) {
@@ -49,22 +50,22 @@ class EnrollmentRepository extends IEnrollmentRepository {
    * Inscribir varios alumnos a un curso
    */
   async bulkCreate(enrollmentsArray) {
-    return insertMany(enrollmentsArray);
+    return Enrollment.insertMany(enrollmentsArray);
   }
 
   async update(id, updateData) {
-    return findByIdAndUpdate(id, updateData, { new: true, runValidators: true });
+    return Enrollment.findByIdAndUpdate(id, updateData, { new: true, runValidators: true });
   }
 
   async updateStatus(id, status) {
-    return findByIdAndUpdate(id, { status }, { new: true });
+    return Enrollment.findByIdAndUpdate(id, { status }, { new: true });
   }
 
   /**
    * Dar de baja un alumno de un curso
    */
   async dropStudent(courseId, studentId) {
-    return findOneAndUpdate(
+    return Enrollment.findOneAndUpdate(
       { courseId, studentId, status: 'active' },
       { status: 'dropped' },
       { new: true }
@@ -76,13 +77,12 @@ class EnrollmentRepository extends IEnrollmentRepository {
    */
   async getStudentsNotInCourse(schoolId, courseId, year) {
     // Primero obtenemos los IDs de alumnos ya inscriptos en este curso
-    const enrolledStudents = await find({ 
+    const enrolledStudents = await Enrollment.find({ 
       courseId, 
       status: 'active' 
     }).distinct('studentId');
-    
+
     // Buscamos alumnos de la escuela que no están en esa lista
-    const Student = require('../models/Student');
     return Student.find({
       schoolId,
       active: true,
@@ -94,7 +94,7 @@ class EnrollmentRepository extends IEnrollmentRepository {
    * Cantidad de alumnos activos en un curso
    */
   async countByCourse(courseId) {
-    return countDocuments({ courseId, status: 'active' });
+    return Enrollment.countDocuments({ courseId, status: 'active' });
   }
 }
 

@@ -1,3 +1,5 @@
+import mongoose from 'mongoose';
+
 const assessmentTemplateSchema = new mongoose.Schema({
   schoolId: { type: mongoose.Schema.Types.ObjectId, ref: 'School' },
   name: { type: String, required: true },               // "Rúbrica de exposiciones", "Lista de asistencia"

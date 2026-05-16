@@ -1,3 +1,5 @@
+import mongoose from 'mongoose';
+
 const evaluationSchema = new mongoose.Schema({
   enrollmentId: { type: mongoose.Schema.Types.ObjectId, ref: 'Enrollment', required: true },
   courseId: { type: mongoose.Schema.Types.ObjectId, ref: 'Course', required: true },

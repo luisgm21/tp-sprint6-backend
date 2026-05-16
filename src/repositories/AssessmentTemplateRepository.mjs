@@ -1,4 +1,4 @@
-import AssessmentTemplate, { find, findById as _findById, findByIdAndUpdate, exists } from '../models/AssessmentTemplate';
+import AssessmentTemplate from '../models/assessmentTemplateModel.mjs';
 import IAssessmentTemplateRepository from './IAssessmentTemplateRepository.mjs';
 
 class AssessmentTemplateRepository extends IAssessmentTemplateRepository {
@@ -10,7 +10,7 @@ class AssessmentTemplateRepository extends IAssessmentTemplateRepository {
     const query = { schoolId, active: true };
     if (type) query.type = type;
     
-    return find(query)
+    return AssessmentTemplate.find(query)
       .populate('createdBy', 'fullName')
       .sort({ name: 1 });
   }
@@ -27,13 +27,13 @@ class AssessmentTemplateRepository extends IAssessmentTemplateRepository {
     };
     if (type) query.type = type;
     
-    return find(query)
+    return AssessmentTemplate.find(query)
       .populate('createdBy', 'fullName')
       .sort({ name: 1 });
   }
 
   async findById(id) {
-    return _findById(id)
+    return AssessmentTemplate.findById(id)
       .populate('createdBy', 'fullName');
   }
 
@@ -43,21 +43,21 @@ class AssessmentTemplateRepository extends IAssessmentTemplateRepository {
   }
 
   async update(id, templateData) {
-    return findByIdAndUpdate(id, templateData, { 
+    return AssessmentTemplate.findByIdAndUpdate(id, templateData, { 
       new: true, 
       runValidators: true 
     });
   }
 
   async deactivate(id) {
-    return findByIdAndUpdate(id, { active: false }, { new: true });
+    return AssessmentTemplate.findByIdAndUpdate(id, { active: false }, { new: true });
   }
 
   /**
    * Para validar que la plantilla existe y está activa
    */
   async isActive(id) {
-    return exists({ _id: id, active: true });
+    return AssessmentTemplate.exists({ _id: id, active: true });
   }
 }
 

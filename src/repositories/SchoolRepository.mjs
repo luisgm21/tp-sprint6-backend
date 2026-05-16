@@ -1,14 +1,14 @@
-import School, { find, findById as _findById, findByIdAndUpdate, exists as _exists } from '../models/School';
+import School from '../models/schoolModel.mjs';
 import ISchoolRepository from './ISchoolRepository.mjs';
 
 class SchoolRepository extends ISchoolRepository {
   
   async findAll() {
-    return find({ active: true });
+    return School.find({ active: true });
   }
 
   async findById(id) {
-    return _findById(id);
+    return School.findById(id);
   }
 
   async create(schoolData) {
@@ -17,15 +17,15 @@ class SchoolRepository extends ISchoolRepository {
   }
 
   async update(id, schoolData) {
-    return findByIdAndUpdate(id, schoolData, { new: true, runValidators: true });
+    return School.findByIdAndUpdate(id, schoolData, { new: true, runValidators: true });
   }
 
   async deactivate(id) {
-    return findByIdAndUpdate(id, { active: false }, { new: true });
+    return School.findByIdAndUpdate(id, { active: false }, { new: true });
   }
 
   async exists(id) {
-    return _exists({ _id: id, active: true });
+    return School.exists({ _id: id, active: true });
   }
 }
 
