@@ -43,6 +43,20 @@ export const updateUserController = async (req, res) => {
 	}
 }
 
+export const changePasswordController = async (req, res) => {
+	try {
+		const { password } = req.body;
+		
+		const user = await updateUserService(req.params.id, { password });
+		if (!user) {
+			return res.status(404).json({ error: "Usuario no encontrado" });
+		}
+		res.json({ message: "Contraseña actualizada correctamente" });
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+}
+
 export const deleteUserController = async (req, res) => {
 	try {
 		const user = await deleteUserService(req.params.id);

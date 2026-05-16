@@ -33,3 +33,9 @@ export const userUpdateValidationRules = () => {
     }),
   ];
 }
+
+export const changePasswordValidationRules = () => {
+  return [
+    check("password").isLength({ min: 6 }).withMessage("La contraseña debe tener al menos 6 caracteres"),
+  ];
+}
