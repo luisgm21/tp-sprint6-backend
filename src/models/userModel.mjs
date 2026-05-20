@@ -5,7 +5,7 @@ const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  role: { type: String, enum: ["user", "student", "teacher", "admin"], default: "user", required: true },
+  role: { type: String, enum: ["teacher", "admin"], default: "teacher", required: true },
   schoolIds: [{ type: mongoose.Schema.Types.ObjectId, ref: 'School' }],
   isDeleted: { type: Boolean, default: false } // Added field for soft delete
 },
