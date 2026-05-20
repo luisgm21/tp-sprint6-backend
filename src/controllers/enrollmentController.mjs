@@ -9,7 +9,9 @@ import {
   updateEnrollmentStatusService,
   dropStudentService,
   getStudentsNotInCourseService,
-  countEnrollmentsByCourseService
+  countEnrollmentsByCourseService,
+  addStudentToCourseService,
+  bulkAddStudentsToCourseService
 } from '../services/enrollmentService.mjs';
 
 export const getEnrollmentsByCourseController = async (req, res) => {
@@ -132,5 +134,25 @@ export const countEnrollmentsByCourseController = async (req, res) => {
     res.json({ total });
   } catch (error) {
     res.status(500).json({ error: error.message });
+  }
+};
+
+export const addStudentToCourseController = async (req, res) => {
+  try {
+    const { courseId } = req.params;
+    const result = await addStudentToCourseService(courseId, req.body);
+    res.status(201).json(result);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+export const bulkAddStudentsToCourseController = async (req, res) => {
+  try {
+    const { courseId } = req.params;
+    const result = await bulkAddStudentsToCourseService(courseId, req.body);
+    res.status(201).json(result);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
   }
 };
