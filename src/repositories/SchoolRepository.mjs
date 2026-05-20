@@ -7,6 +7,10 @@ class SchoolRepository extends ISchoolRepository {
     return School.find({ active: true });
   }
 
+  async findByCreator(createdBy) {
+    return School.find({ createdBy, active: true }).sort({ name: 1 });
+  }
+
   async findById(id) {
     return School.findById(id);
   }

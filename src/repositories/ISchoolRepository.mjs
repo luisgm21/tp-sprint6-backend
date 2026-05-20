@@ -3,6 +3,10 @@ class ISchoolRepository {
     throw new Error("Method not implemented");
   }
 
+  findByCreator(createdBy) {
+    throw new Error("Method not implemented");
+  }
+
   findById(id) {
     throw new Error("Method not implemented");
   }

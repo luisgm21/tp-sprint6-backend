@@ -4,6 +4,10 @@ export const getSchoolsService = async () => {
   return schoolRepository.findAll();
 };
 
+export const getSchoolsByCreatorService = async (createdBy) => {
+  return schoolRepository.findByCreator(createdBy);
+};
+
 export const getSchoolByIdService = async (id) => {
   return schoolRepository.findById(id);
 };

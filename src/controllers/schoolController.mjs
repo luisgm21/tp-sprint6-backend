@@ -1,5 +1,6 @@
 import {
   getSchoolsService,
+  getSchoolsByCreatorService,
   getSchoolByIdService,
   createSchoolService,
   updateSchoolService,
@@ -10,6 +11,15 @@ import {
 export const getSchoolsController = async (req, res) => {
   try {
     const schools = await getSchoolsService();
+    res.json(schools);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+export const getMySchoolsController = async (req, res) => {
+  try {
+    const schools = await getSchoolsByCreatorService(req.user.id);
     res.json(schools);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -30,7 +40,10 @@ export const getSchoolByIdController = async (req, res) => {
 
 export const createSchoolController = async (req, res) => {
   try {
-    const school = await createSchoolService(req.body);
+    const school = await createSchoolService({
+      ...req.body,
+      createdBy: req.user.id,
+    });
     res.status(201).json(school);
   } catch (error) {
     res.status(500).json({ error: error.message });
