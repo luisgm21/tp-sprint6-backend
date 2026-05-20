@@ -4,9 +4,9 @@ import User from '../models/userModel.mjs';
 
 export const registerController = async (req, res) => {
   try {
-    const { name, email, password, role, schoolIds } = req.body;
-    if (role === 'admin') {
-      return res.status(403).json({ error: 'No se permite registrar admin desde este endpoint' });
+    const { name, email, password, role = 'teacher', schoolIds } = req.body;
+    if (!['teacher', 'admin'].includes(role)) {
+      return res.status(400).json({ error: 'Rol inválido. Solo se permite teacher o admin' });
     }
 
     const existing = await User.findOne({ email });

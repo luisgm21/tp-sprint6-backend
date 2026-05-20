@@ -26,7 +26,7 @@ export const userUpdateValidationRules = () => {
       return true;
     }),
     check("role").optional().custom((value, { req }) => {
-      if (value !== "admin" && value !== "user" && value !== "student" && value !== "teacher") {
+      if (value !== "admin" && value !== "teacher") {
         throw new Error("Debe ser un rol válido'");
       }
       return true;
