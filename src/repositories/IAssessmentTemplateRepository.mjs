@@ -1,4 +1,8 @@
 class IAssessmentTemplateRepository {
+  findGlobal(type = null) {
+    throw new Error("Method not implemented");
+  }
+
   findBySchool(schoolId, type = null) {
     throw new Error("Method not implemented");
   }

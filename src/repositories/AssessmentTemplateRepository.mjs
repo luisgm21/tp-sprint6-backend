@@ -3,6 +3,15 @@ import IAssessmentTemplateRepository from './IAssessmentTemplateRepository.mjs';
 
 class AssessmentTemplateRepository extends IAssessmentTemplateRepository {
 
+  async findGlobal(type = null) {
+    const query = { schoolId: null, active: true };
+    if (type) query.type = type;
+
+    return AssessmentTemplate.find(query)
+      .populate('createdBy', 'fullName')
+      .sort({ name: 1 });
+  }
+
   /**
    * Plantillas disponibles por escuela y tipo
    */

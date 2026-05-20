@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import {
+  getGlobalTemplatesController,
   getTemplatesBySchoolController,
   getAvailableTemplatesController,
   getAssessmentTemplateByIdController,
@@ -11,6 +12,7 @@ import {
 
 const assessmentTemplateRouter = Router();
 
+assessmentTemplateRouter.get('/global', getGlobalTemplatesController);
 assessmentTemplateRouter.get('/school/:schoolId', getTemplatesBySchoolController);
 assessmentTemplateRouter.get('/school/:schoolId/available', getAvailableTemplatesController);
 assessmentTemplateRouter.get('/:id/active', isAssessmentTemplateActiveController);

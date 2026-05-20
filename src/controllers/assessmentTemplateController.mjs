@@ -1,4 +1,5 @@
 import {
+  getGlobalTemplatesService,
   getTemplatesBySchoolService,
   getAvailableTemplatesService,
   getAssessmentTemplateByIdService,
@@ -7,6 +8,16 @@ import {
   deactivateAssessmentTemplateService,
   isAssessmentTemplateActiveService
 } from '../services/assessmentTemplateService.mjs';
+
+export const getGlobalTemplatesController = async (req, res) => {
+  try {
+    const { type } = req.query;
+    const templates = await getGlobalTemplatesService(type || null);
+    res.json(templates);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 
 export const getTemplatesBySchoolController = async (req, res) => {
   try {

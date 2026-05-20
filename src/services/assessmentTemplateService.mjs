@@ -1,5 +1,9 @@
 import assessmentTemplateRepository from '../repositories/AssessmentTemplateRepository.mjs';
 
+export const getGlobalTemplatesService = async (type = null) => {
+  return assessmentTemplateRepository.findGlobal(type);
+};
+
 export const getTemplatesBySchoolService = async (schoolId, type = null) => {
   return assessmentTemplateRepository.findBySchool(schoolId, type);
 };
