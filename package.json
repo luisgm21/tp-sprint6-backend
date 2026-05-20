@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "node --watch server.mjs",
-    "start": "node server.mjs"
+    "start": "node server.mjs",
+    "seed:admin": "node scripts/create-admin.mjs"
   },
   "keywords": [],
   "author": "",

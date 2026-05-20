@@ -1,5 +1,6 @@
 import { Router } from "express";
 import userRouter from "./userRoutes.mjs";
+import authRouter from './authRoutes.mjs';
 import assessmentTemplateRouter from './assessmentTemplateRoutes.mjs';
 import courseRouter from './courseRoutes.mjs';
 import enrollmentRouter from './enrollmentRoutes.mjs';
@@ -9,6 +10,7 @@ import schoolRouter from './schoolRoutes.mjs';
 import studentRouter from './studentRoutes.mjs';
 
 const router = Router();
+router.use('/auth', authRouter);
 router.use("/users", userRouter);
 router.use('/assessment-templates', assessmentTemplateRouter);
 router.use('/courses', courseRouter);
