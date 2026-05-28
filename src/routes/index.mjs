@@ -10,6 +10,11 @@ import schoolRouter from './schoolRoutes.mjs';
 import studentRouter from './studentRoutes.mjs';
 
 const router = Router();
+
+router.get('/', (_req, res) => {
+	res.status(200).json({ message: 'Bienvenido a la API' });
+});
+
 router.use('/auth', authRouter);
 router.use("/users", userRouter);
 router.use('/assessment-templates', assessmentTemplateRouter);
