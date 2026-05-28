@@ -204,12 +204,12 @@ Actualmente no existe endpoint de health explícito. Para monitoreo en producci�
 Pegar aquí la URL pública del backend para copiarla rápido:
 
 ```txt
-https://TU-BACKEND-DEPLOY.com
+[https://tp-sprint6-backend.onrender.com](https://tp-sprint6-backend.onrender.com)
 ```
 
 Opcional, en formato extendido:
 
 ```txt
-Backend API: https://TU-BACKEND-DEPLOY.com
-Frontend: https://TU-FRONTEND-DEPLOY.com
+Frontend: [https://sprint6morelli.netlify.app](https://sprint6morelli.netlify.app)
+Backend API: [https://tp-sprint6-backend.onrender.com](https://tp-sprint6-backend.onrender.com)
 ```
